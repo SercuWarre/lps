@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR().AddAzureSignalR("Endpoint=https://testwout.service.signalr.net;AccessKey=W2rqLpD+CFxQjzTs8keMw6cVvyWPe3QOpRGceR63cn0=;Version=1.0;");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
