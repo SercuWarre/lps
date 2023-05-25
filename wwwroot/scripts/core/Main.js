@@ -45,6 +45,7 @@ export default class Main {
             1000 //Clipping for things farther than this amount
         );
         this._camera.position.setY(1.7); //Height of your eyes
+        this._camera.position.setZ(10); //Move camera back so we can see the shapes
         this._scene.add(this._camera);
     }
 
@@ -81,12 +82,13 @@ export default class Main {
         
         this._shapes.add(cubeMesh);
         this._shapes.position.setY(0); //Place at eye level
-        this._shapes.position.setZ(-10); //Move shape forward so we can see it
+        this._shapes.position.setZ(0); //Move shape forward so we can see it
         this._scene.add(this._shapes);
 
         //Add light to the scene
         let light = new THREE.PointLight();
         light.position.setY(2);
+        light.position.setZ(10);
         this._scene.add(light);
     }
 
@@ -105,15 +107,17 @@ export default class Main {
     }
 
     _update() {
-        let timeDelta = this._clock.getDelta();
+        //let timeDelta = this._clock.getDelta();
         //get runtime of the program
-        let timeElapsed = this._clock.getElapsedTime();
+        //let timeElapsed = this._clock.getElapsedTime();
         // let rotationAmount = 2 * Math.PI * timeDelta * 0.1; //0.1 rotations per second
         // this._shapes.rotation.x += rotationAmount;
         // this._shapes.rotation.y += rotationAmount;
-        let x_loc = Math.sin(timeElapsed)*5;
+        //let x_loc = Math.sin(timeElapsed)*5;
         //log the x location of the shape
-        this._shapes.position.setX(x_loc);
+        this._shapes.position.setX((window.object['1'][0]) * 10);
+        this._shapes.position.setY((window.object['1'][1]) * 10);
+        this._shapes.position.setZ((window.object['1'][2]) * 10);
         this._sessionHandler.update();
         this._renderer.render(this._scene, this._camera);
     }
