@@ -115,9 +115,9 @@ export default class Main {
         // this._shapes.rotation.y += rotationAmount;
         //let x_loc = Math.sin(timeElapsed)*5;
         //log the x location of the shape
-        this._shapes.position.setX((window.object['1'][2]) * 5);
-        this._shapes.position.setY((window.object['1'][1]) * 5);
-        this._shapes.position.setZ((window.object['1'][0]) * -5);
+        this._shapes.position.setX((window.object['1'][0]) * 10);
+        this._shapes.position.setY((window.object['1'][1]) * -10);
+        this._shapes.position.setZ((window.object['1'][2]) * -10);
         this._sessionHandler.update();
         this._renderer.render(this._scene, this._camera);
     }
