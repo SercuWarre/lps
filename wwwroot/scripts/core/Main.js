@@ -10,6 +10,7 @@ export default class Main {
         this._scene;
         this._camera;
         this._shapes;
+        this._plane;
         this._clock = new THREE.Clock();
         this._container = document.getElementById('container');
 
@@ -45,8 +46,9 @@ export default class Main {
             1000 //Clipping for things farther than this amount
         );
         this._camera.position.setY(1.7); //Height of your eyes
-        this._camera.position.setZ(10); //Move camera back so we can see the shapes
+        this._camera.position.setZ(0); //Move camera back so we can see the shapes
         this._scene.add(this._camera);
+        this._scene.background = new THREE.Color(0xB2BEB5);
     }
 
     _createAssets() {
@@ -62,6 +64,7 @@ export default class Main {
         let cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
         //const loader = new GLTFLoader();
         this._shapes = new THREE.Object3D();
+        this._plane = new THREE.Object3D();
         /*let me = this;
         loader.load(
           // resource URL
@@ -84,11 +87,28 @@ export default class Main {
         this._shapes.position.setY(0); //Place at eye level
         this._shapes.position.setZ(0); //Move shape forward so we can see it
         this._scene.add(this._shapes);
+        let loader = new THREE.TextureLoader();
+        let texture = loader.load('../scripts/Texture/granstudio.jpg');
+        /*texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.x = 3;
+        texture.repeat.y = 3;*/
+        const geometry = new THREE.PlaneGeometry(10, 10, 5, 5);
+        const material = new THREE.MeshPhongMaterial({ map: texture, side: THREE.DoubleSide });
+        const plane = new THREE.Mesh(geometry, material);
+        this._plane.add(plane);
+        this._plane.position.setY(-0.5); //Place at eye level
+        this._plane.position.setZ(-10); //Move shape forward so we can see it
+        this._plane.rotation.x = -Math.PI / 2;
+        this._scene.add(this._plane);
+        
 
         //Add light to the scene
-        let light = new THREE.PointLight();
-        light.position.setY(2);
+        let light = new THREE.PointLight(0xffffff, 0.8);
+        let ambientLight = new THREE.AmbientLight(0xffffff,0.4);
+        light.position.setY(0);
         light.position.setZ(10);
+        this._scene.add(ambientLight);
         this._scene.add(light);
     }
 
@@ -117,7 +137,7 @@ export default class Main {
         //log the x location of the shape
         this._shapes.position.setX((window.object['1'][0]) * 10);
         this._shapes.position.setY((window.object['1'][1]) * -10);
-        this._shapes.position.setZ((window.object['1'][2]) * -10);
+        this._shapes.position.setZ(((window.object['1'][2]) * -10)-10);
         this._sessionHandler.update();
         this._renderer.render(this._scene, this._camera);
     }
