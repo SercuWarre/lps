@@ -88,7 +88,7 @@ export default class Main {
         this._shapes.position.setZ(0); //Move shape forward so we can see it
         this._scene.add(this._shapes);
         let loader = new THREE.TextureLoader();
-        let texture = loader.load('../scripts/Texture/granstudio.jpg');
+        let texture = loader.load('../scripts/Texture/granstudio_Template.jpg');
         /*texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.x = 3;
@@ -104,8 +104,8 @@ export default class Main {
         
 
         //Add light to the scene
-        let light = new THREE.PointLight(0xffffff, 0.8);
-        let ambientLight = new THREE.AmbientLight(0xffffff,0.4);
+        let light = new THREE.PointLight(0xffffff, 0.1);
+        let ambientLight = new THREE.AmbientLight(0xffffff,0.5);
         light.position.setY(0);
         light.position.setZ(10);
         this._scene.add(ambientLight);
