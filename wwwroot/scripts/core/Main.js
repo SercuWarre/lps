@@ -48,7 +48,7 @@ export default class Main {
         this._camera.position.setY(1.7); //Height of your eyes
         this._camera.position.setZ(0); //Move camera back so we can see the shapes
         this._scene.add(this._camera);
-        this._scene.background = new THREE.Color(0xB2BEB5);
+        //this._scene.background = new THREE.Color(0xB2BEB5);
     }
 
     _createAssets() {
@@ -101,8 +101,8 @@ export default class Main {
         this._plane.position.setZ(-5); //Move shape forward so we can see it
         this._plane.rotation.x = -Math.PI / 2;
         this._scene.add(this._plane);
-        
 
+        this._addSkyBox();
         //Add light to the scene
         let light = new THREE.PointLight(0xffffff, 0.1);
         let ambientLight = new THREE.AmbientLight(0xffffff,0.5);
@@ -110,6 +110,33 @@ export default class Main {
         light.position.setZ(10);
         this._scene.add(ambientLight);
         this._scene.add(light);
+    }
+
+    _addSkyBox() {
+        let materialArray = [];
+        let texture_ft = new THREE.TextureLoader().load('../scripts/Texture/andy_wall.jpg');
+        let texture_bk = new THREE.TextureLoader().load('../scripts/Texture/andy_wall.jpg');
+        let texture_up = new THREE.TextureLoader().load('../scripts/Texture/andy_roof.jpg');
+        let texture_dn = new THREE.TextureLoader().load('../scripts/Texture/andy_floor.jpg');
+        let texture_rt = new THREE.TextureLoader().load('../scripts/Texture/andy_wall.jpg');
+        let texture_lf = new THREE.TextureLoader().load('../scripts/Texture/andy_wall.jpg');
+
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft, side: THREE.DoubleSide }));
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bk, side: THREE.DoubleSide }));
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_up, side: THREE.DoubleSide }));
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_dn, side: THREE.DoubleSide }));
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_rt, side: THREE.DoubleSide }));
+        materialArray.push(new THREE.MeshBasicMaterial({ map: texture_lf, side: THREE.DoubleSide }));
+
+        console.log('hola');
+        
+        /*for (let i = 0; i < 6; i++)
+            materialArray[i].side = THREE.BackSide;*/
+
+        let skyboxGeo = new THREE.BoxGeometry(15, 10, 15);
+        let skybox = new THREE.Mesh(skyboxGeo, materialArray);
+        skybox.position.set(0, 4.45, -5);
+        this._scene.add(skybox);
     }
 
     _addEventListeners() {
