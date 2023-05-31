@@ -88,7 +88,7 @@ export default class Main {
         this._shapes.position.setZ(0); //Move shape forward so we can see it
         this._scene.add(this._shapes);
         let loader = new THREE.TextureLoader();
-        let texture = loader.load('../scripts/Texture/granstudio_Template.jpg');
+        let texture = loader.load('../scripts/Texture/granstudio_grid2.jpg');
         /*texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.repeat.x = 3;
@@ -98,7 +98,7 @@ export default class Main {
         const plane = new THREE.Mesh(geometry, material);
         this._plane.add(plane);
         this._plane.position.setY(-0.5); //Place at eye level
-        this._plane.position.setZ(-10); //Move shape forward so we can see it
+        this._plane.position.setZ(-5); //Move shape forward so we can see it
         this._plane.rotation.x = -Math.PI / 2;
         this._scene.add(this._plane);
         
@@ -137,7 +137,7 @@ export default class Main {
         //log the x location of the shape
         this._shapes.position.setX((window.object['1'][0]) * 10);
         this._shapes.position.setY((window.object['1'][1]) * -10);
-        this._shapes.position.setZ(((window.object['1'][2]) * -10)-10);
+        this._shapes.position.setZ(((window.object['1'][2]) * -10)-5);
         this._sessionHandler.update();
         this._renderer.render(this._scene, this._camera);
     }
