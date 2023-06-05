@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.StaticFiles;
 using SignalRChat.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -5,6 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR().AddAzureSignalR("Endpoint=https://testwout.service.signalr.net;AccessKey=W2rqLpD+CFxQjzTs8keMw6cVvyWPe3QOpRGceR63cn0=;Version=1.0;");
 var app = builder.Build();
+
+var provider = new FileExtensionContentTypeProvider();
+provider.Mappings.Add(".gltf", "text/xml");
+app.UseStaticFiles(new StaticFileOptions
+{
+    ContentTypeProvider = provider
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
